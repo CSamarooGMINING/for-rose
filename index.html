@@ -8,9 +8,9 @@
 <meta name="apple-mobile-web-app-title" content="For Rose">
 <meta name="format-detection" content="telephone=no">
 <meta property="og:title" content="For Rose 🌹">
-<meta property="og:description" content="Something just for you. Tap to open.">
+<meta property="og:description" content="I have something I need to say.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌹%3C/text%3E%3C/svg%3E">
-<title>For Ruth</title>
+<title>For Rose</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
@@ -105,6 +105,15 @@
   .coupon.used .stamp{opacity:.9;transform:rotate(-14deg) scale(1)}
   .coupon.used .ico,.coupon.used .t,.coupon.used .s{opacity:.35}
 
+  .garden{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;min-height:44px;margin:4px 0 6px}
+  .rose{font-size:30px;line-height:1.1;display:inline-block;animation:grow .5s cubic-bezier(.3,1.6,.5,1) both}
+  @keyframes grow{from{transform:scale(0) rotate(0)}to{transform:scale(1) rotate(var(--r))}}
+  .plain{font-size:17px;line-height:1.5;color:var(--ink);margin-top:8px}
+  .bloom{font-size:64px;text-align:center;line-height:1;margin-top:6px;filter:grayscale(.5);transition:filter .6s}
+  .bloom.alive{filter:none;animation:grow .7s cubic-bezier(.3,1.6,.5,1) both;--r:0deg}
+  .bloom-cap{text-align:center;font-size:13px;color:var(--soft);margin-top:6px}
+  .ready{max-height:0;overflow:hidden;opacity:0;text-align:center;font-family:"Caveat",cursive;font-size:26px;line-height:1.2;color:var(--deep);transition:all .5s ease}
+  .ready.show{max-height:160px;opacity:1;margin-top:18px}
   /* toast */
   #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:15px;z-index:60;transition:transform .35s cubic-bezier(.3,1.4,.5,1);max-width:90vw;text-align:center}
   #toast.show{transform:translate(-50%,0)}
@@ -125,48 +134,64 @@
 <section id="intro">
   <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the envelope">
     <div class="env-body"></div>
-    <div class="env-letter hand">Hi Rose 🌹</div>
+    <div class="env-letter hand">I'm sorry 🌹</div>
     <div class="env-pocket"></div>
     <div class="env-flap"></div>
     <svg class="seal" width="44" height="44" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#8a0b20"/><path d="M12 17.3l-1-.9C7.6 13.4 5.5 11.5 5.5 9.2 5.5 7.4 6.9 6 8.7 6c1 0 2 .5 2.6 1.2h1.4C13.3 6.5 14.3 6 15.3 6c1.8 0 3.2 1.4 3.2 3.2 0 2.3-2.1 4.2-5.5 7.2l-1 .9z" fill="#fff"/></svg>
   </div>
-  <div class="intro-text hand">Something for Ruth</div>
+  <div class="intro-text hand">Rose, please read this</div>
   <div class="intro-sub">tap the envelope</div>
 </section>
 
 <main id="main">
   <header>
-    <h1>Hi Rose <span class="wave">🌹</span></h1>
-    <p class="lede">(Yes, you, Ruth.) This little corner of the internet is just for you, painted in our favourite colour.</p>
+    <h1>I'm sorry <span class="wave" id="headRose">🥀</span></h1>
+    <p class="lede">Rose, please forgive me. I miss you.</p>
   </header>
 
   <section class="card">
-    <h2>The smile machine</h2>
-    <p class="hint">Press the button whenever you need it. It never runs out.</p>
-    <div class="note" id="note">Ready when you are ♡</div>
+    <h2>What I need you to know</h2>
+    <p class="hint">One thing at a time. Tap when you're ready for the next.</p>
+    <div class="bloom" id="bloom" aria-hidden="true">🥀</div>
+    <div class="bloom-cap" id="bloomCap">This is me without you.</div>
+    <div class="note" id="note">Please forgive me.</div>
     <div class="center">
-      <button class="btn" id="smileBtn">Make me smile</button>
-      <div class="count" id="count"></div>
+      <button class="btn" id="nextBtn">Keep reading</button>
     </div>
   </section>
 
   <section class="card">
-    <h2>How much do I like you?</h2>
-    <p class="hint">Let's measure it scientifically. Keep tapping.</p>
+    <h2>How sorry am I?</h2>
+    <p class="hint">You've seen this machine before. Let's measure it again.</p>
     <div class="meter" id="meter"><div class="meter-fill" id="fill"></div></div>
     <div class="meter-label" id="meterLabel">&nbsp;</div>
     <div class="center"><button class="btn alt" id="measureBtn">Measure</button></div>
   </section>
 
   <section class="card">
-    <h2>Coupons, just for you</h2>
-    <p class="hint">Tap one to redeem it. No expiry date. Show this screen to collect.</p>
+    <h2>A rose for every time I've thought of you</h2>
+    <p class="hint">I lost count today, so I'm starting over here. Tap to plant one.</p>
+    <div class="garden" id="garden"></div>
+    <div class="meter-label" id="gardenLabel">&nbsp;</div>
+    <div class="center"><button class="btn alt" id="plantBtn">Plant a rose</button></div>
+  </section>
+
+  <section class="card">
+    <h2>Peace offerings</h2>
+    <p class="hint">Yours to claim whenever you like. No expiry date, no conditions.</p>
     <div class="coupons" id="coupons"></div>
+  </section>
+
+  <section class="card">
+    <h2>No pressure</h2>
+    <p class="plain">Take all the time you need. I'm not going anywhere.</p>
+    <div class="center" style="margin-top:18px"><button class="btn" id="readyBtn">I'm ready to talk</button></div>
+    <div class="ready" id="ready">Then call me, text me, or just say hi. I'll listen first, I promise. ♡</div>
   </section>
 
   <footer>
     <div class="sig">— Christopher</div>
-    <div class="ps">p.s. tap anywhere, Rose. go on.</div>
+    <div class="ps">p.s. I miss you.</div>
   </footer>
 </main>
 
@@ -231,86 +256,96 @@
   env.addEventListener('click', openEnvelope);
   env.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') openEnvelope(); });
 
-  // smile machine
+  // apology notes, in order
   const notes = [
-    "You make ordinary days feel like the good kind of weekend.",
-    "Your laugh is my favourite sound. Not even close.",
-    "I'd share my last snack with you. That's serious.",
-    "Somewhere right now, I'm thinking about you and smiling like an idiot.",
-    "You're the best part of my day, every day.",
-    "Fun fact: you're cute. That's just science.",
-    "If you were a Wi-Fi signal, you'd be full bars. Always.",
-    "You're my favourite notification.",
-    "Thank you for being exactly you.",
-    "Being around you is my favourite place to be.",
-    "You deserve all the good things. Like, all of them.",
-    "Out of everyone on this planet, I'm really glad it's you.",
-    "Drink some water, you beautiful human.",
-    "You make me want to be better. Annoyingly so.",
-    "Reminder: you are loved more than you know.",
-    "I like you a normal amount. (That's a lie. It's way more.)",
-    "Roses are red, and so is our favourite colour. Coincidence? I think not.",
-    "Of all the flowers in the world, you're my Rose.",
-    "You make red look like the only colour that matters.",
-    "Every rose has its thorn. Mine just has an attitude I adore.",
-    "Red is the colour of love, and of you. Same thing, really."
+    "Please forgive me.",
+    "I miss you. More than I know how to say.",
+    "I'm sorry I hurt you. You didn't deserve that.",
+    "I'm not here with excuses. I'm here to say I was wrong.",
+    "You matter more to me than being right.",
+    "I miss your laugh. I miss us.",
+    "I'll do better. Not just say it. Do it.",
+    "You're still my Rose. Always."
   ];
-  let order = [], idx = 0, presses = 0;
-  const shuffle = () => { order = notes.map((_,i)=>i).sort(()=>Math.random()-.5); idx = 0; };
-  shuffle();
-  $('#smileBtn').addEventListener('click', () => {
-    if(idx >= order.length) shuffle();
+  let idx = 0;
+  $('#nextBtn').addEventListener('click', () => {
+    idx = (idx + 1) % notes.length;
     const n = $('#note');
     n.classList.remove('flip'); void n.offsetWidth; n.classList.add('flip');
-    n.textContent = notes[order[idx++]];
-    presses++;
-    $('#count').textContent = presses === 1 ? "1 smile delivered" : presses + " smiles delivered";
+    n.textContent = notes[idx];
+    const last = idx === notes.length - 1;
+    $('#nextBtn').textContent = last ? 'Read again' : 'Keep reading';
+    if(last && !bloomed){
+      bloomed = true;
+      const b = $('#bloom');
+      b.textContent = '🌹'; b.classList.add('alive');
+      $('#headRose').textContent = '🌹';
+      $('#bloomCap').textContent = 'This is me with you.';
+      const r = b.getBoundingClientRect();
+      burst(r.left + r.width/2, r.top + r.height/2, 16);
+    }
   });
+  let bloomed = false;
 
-  // meter
+  // sorry meter
   let level = 0;
   const labels = [
-    [0,"Calibrating…"],[20,"A little bit"],[40,"Quite a lot"],[60,"A whole lot"],
-    [80,"Dangerously high"],[100,"Off the charts!"],[120,"ERROR: scale not big enough"],
-    [140,"Please stop, the machine is crying"],[160,"Okay fine. Infinity. It's infinity. ♡"]
+    [20,"Very sorry"],[40,"Really, truly sorry"],[60,"Lying-awake-at-night sorry"],
+    [80,"Would-walk-to-you-in-the-rain sorry"],[100,"Off the charts"],
+    [120,"ERROR: scale not big enough (again)"],[140,"The machine can't measure this much"],
+    [160,"More than a machine can say. I'm sorry, Rose."]
   ];
   $('#measureBtn').addEventListener('click', () => {
     level = Math.min(level + 20, 160);
     $('#fill').style.width = Math.min(level,100) + '%';
-    let lab = labels[0][1];
+    let lab = '';
     for(const [v,t] of labels) if(level >= v) lab = t;
     $('#meterLabel').textContent = lab;
     $('#meter').classList.toggle('over', level > 100 && level < 160);
-    if(level === 160){
-      const r = $('#meter').getBoundingClientRect();
-      for(let i=0;i<5;i++) setTimeout(()=>burst(rnd(r.left,r.right), r.top, 10), i*120);
-      $('#measureBtn').textContent = 'Measure again';
-      level = 0;
-      setTimeout(()=>{ $('#fill').style.width = '0%'; }, 2400);
-    }
+    if(level === 160){ $('#measureBtn').textContent = 'Measure again'; level = 0;
+      setTimeout(()=>{ $('#fill').style.width = '0%'; }, 2600); }
   });
 
-  // coupons
+  // peace offerings
   const coupons = [
-    ["🤗","One big hug","no time limit"],
-    ["🍿","Movie night","you pick, no complaints"],
-    ["🍝","I cook dinner","or at least try"],
-    ["🌹","A real rose","for my Rose, in person"],
-    ["🙆‍♀️","You win","one argument, instantly"],
-    ["☕","Breakfast delivered","with a smile"],
-    ["🚗","Adventure day","you choose where"],
-    ["💆‍♀️","Shoulder rub","15 minutes, minimum"]
+    ["👂","I listen","you talk, I don't interrupt"],
+    ["🤗","The longest hug","whenever you want it"],
+    ["🌹","A real rose","delivered in person"],
+    ["🍝","Your favourite meal","my treat, your pick"],
+    ["🙆‍♀️","You were right","in writing, signed"],
+    ["🚗","A do-over day","planned around you"]
   ];
-  const wrap = $('#coupons');
   coupons.forEach(([i,t,s]) => {
     const c = document.createElement('div');
     c.className = 'coupon';
-    c.innerHTML = `<div class="ico">${i}</div><div class="t">${t}</div><div class="s">${s}</div><div class="stamp">Redeemed!</div>`;
+    c.innerHTML = `<div class="ico">${i}</div><div class="t">${t}</div><div class="s">${s}</div><div class="stamp">Claimed!</div>`;
     c.addEventListener('click', () => {
       c.classList.toggle('used');
-      if(c.classList.contains('used')) toast(`"${t}" redeemed. Show this to Christopher ♡`);
+      if(c.classList.contains('used')) toast(`"${t}" claimed. It's yours ♡`);
     });
-    wrap.appendChild(c);
+    $('#coupons').appendChild(c);
+  });
+
+  // ready
+  $('#readyBtn').addEventListener('click', e => {
+    $('#ready').classList.add('show');
+    const r = e.currentTarget.getBoundingClientRect();
+    burst(r.left + r.width/2, r.top, 18);
+  });
+
+  // rose garden
+  let roses = 0;
+  $('#plantBtn').addEventListener('click', () => {
+    if(roses >= 60) return;
+    const r = document.createElement('span');
+    r.className = 'rose'; r.textContent = '🌹';
+    r.style.setProperty('--r', rnd(-14,14)+'deg');
+    $('#garden').appendChild(r);
+    roses++;
+    $('#gardenLabel').textContent = roses === 1 ? 'One rose. Not nearly enough.' :
+      roses < 6 ? roses + ' roses. Still not enough.' :
+      roses < 12 ? roses + ' roses, and I mean every one.' :
+      roses + ' roses. I\'d plant a thousand.';
   });
 })();
 </script>
